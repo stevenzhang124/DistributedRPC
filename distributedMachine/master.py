@@ -13,7 +13,7 @@ from torch.distributed.optim import DistributedOptimizer
 from torch.distributed.rpc import RRef
 
 from torchvision.models.resnet import Bottleneck
-os.environ['MASTER_ADDR'] = '192.168.1.100' # 指定master ip地址
+os.environ['MASTER_ADDR'] = '192.168.1.110' # 指定master ip地址
 os.environ['MASTER_PORT'] = '7856' # 指定master 端口号
 
 #########################################################
