@@ -191,7 +191,7 @@ image_h = 128
 if __name__=="__main__":
     options = rpc.TensorPipeRpcBackendOptions(num_worker_threads=256, rpc_timeout=300)
     # 初始化主节点的RPC连接
-    rpc.init_rpc("master", rank=0, world_size=2, rpc_backend_options=options)
+    rpc.init_rpc("master", rank=0, world_size=2, backend=rpc.BackendType.TENSORPIPE, rpc_backend_options=options)
     print("here")
 
     for num_split in [1,2]:
