@@ -108,6 +108,7 @@ if __name__=="__main__":
     options = rpc.TensorPipeRpcBackendOptions(num_worker_threads=256, rpc_timeout=300)
     # 初始化工作节点的RPC连接
     rpc.init_rpc("worker", rank=1, world_size=2, rpc_backend_options=options)
+    print("here")
 
     # 等待主节点的调用
     rpc.shutdown()
