@@ -38,7 +38,8 @@ if __name__ == '__main__':
 	# 关闭RPC连接
 	rpc.shutdown()
 
-	out = vgg16.VGG16Partitioned(inputs)
+	full_model = vgg16.VGG16Partitioned()
+	out = full_model(inputs)
 	print(out)
 
 
