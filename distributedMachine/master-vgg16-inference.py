@@ -29,7 +29,7 @@ if __name__ == '__main__':
 	inputs = torch.randn(batch_size, 3, image_w, image_h)
 	model_shard_0 = stage0.Stage0()
 	model_shard_0.eval()
-	model.cuda()
+	model_shard_0.cuda()
 	p2_rref = rpc.remote('worker1', stage1.Stage1)
 	p2_rref.rpc_sync().eval()
 	p2_rref.rpc_sync().cuda()
