@@ -28,11 +28,14 @@ if __name__ == '__main__':
 	#generate random data
 	inputs = torch.randn(batch_size, 3, image_w, image_h)
 	model_shard_0 = stage0.Stage0()
-	# p2_rref = rpc.remote('worker1', stage1.Stage1)
+	model_shard_0.eval()
+	model.cuda()
+	p2_rref = rpc.remote('worker1', stage1.Stage1)
+	p2_rref.rpc_sync().eval()
+	p2_rref.rpc_sync().cuda()
 
 	out0 = model_shard_0(inputs)
-	# out1 = p2_rref.rpc_sync().forward(out0)
-	out1 = rpc.rpc_sync('worker1', stage1.Stage1.forward, args=(out0,))
+	out1 = p2_rref.rpc_sync().forward(out0)
 	
 	print(out1)
 

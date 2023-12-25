@@ -19,7 +19,7 @@ class Stage0(torch.nn.Module):
         self._initialize_weights()
 
     def forward(self, input0):
-        out0 = input0.clone()
+        out0 = input0.clone().cuda()
         out2 = self.layer2(out0)
         out3 = self.layer3(out2)
         out4 = self.layer4(out3)
@@ -28,7 +28,7 @@ class Stage0(torch.nn.Module):
         out7 = self.layer7(out6)
         out8 = self.layer8(out7)
         out9 = self.layer9(out8)
-        return out9
+        return out9.cpu()
 
     def _initialize_weights(self):
         for m in self.modules():
