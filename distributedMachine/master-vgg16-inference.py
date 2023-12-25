@@ -43,6 +43,8 @@ if __name__ == '__main__':
 	rpc.shutdown()
 
 	full_model = vgg16.VGG16Partitioned()
+	full_model.eval()
+	full_model.cuda()
 	out = full_model(inputs)
 	print(out)
 
