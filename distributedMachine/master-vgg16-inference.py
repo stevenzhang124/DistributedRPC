@@ -21,8 +21,8 @@ image_w = 224
 image_h = 224
 
 if __name__ == '__main__':
-    # 初始化主节点的RPC连接
-    rpc.init_rpc("master", rank=0, world_size=2)
+	# 初始化主节点的RPC连接
+	rpc.init_rpc("master", rank=0, world_size=2)
 
 
 	#generate random data
@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	print(out1)
 
 	# 关闭RPC连接
-    rpc.shutdown()
+	rpc.shutdown()
 
 	out = vgg16.VGG16Partitioned(inputs)
 	print(out)
