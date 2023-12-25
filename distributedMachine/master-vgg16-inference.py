@@ -22,17 +22,14 @@ image_h = 224
 
 if __name__ == '__main__':
 	# 初始化主节点的RPC连接
-	rpc.init_rpc("master", rank=0, world_size=2)
+	rpc.init_rpc("master", rank=0, world_size=2, requires_grad=False)
 
 
 	#generate random data
 	inputs = torch.randn(batch_size, 3, image_w, image_h)
 	model_shard_0 = stage0.Stage0()
-	model_shard_0.eval()
 	model_shard_0.cuda()
-	p2_rref = rpc.remote('worker1', stage1.Stage1)
-	p2_rref.rpc_sync().eval()
-	p2_rref.rpc_sync().cuda()
+	p2_rref = rpc.remote('worker1', stage1.Stage1).cuda()
 
 	out0 = model_shard_0(inputs)
 	out1 = p2_rref.rpc_sync().forward(out0)
@@ -42,11 +39,9 @@ if __name__ == '__main__':
 	# 关闭RPC连接
 	rpc.shutdown()
 
-	full_model = vgg16.VGG16Partitioned()
-	full_model.eval()
-	full_model.cuda()
-	out = full_model(inputs)
-	print(out)
+	# full_model = vgg16.VGG16Partitioned()
+	# out = full_model(inputs)
+	# print(out)
 
 
 
