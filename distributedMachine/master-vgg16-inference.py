@@ -22,11 +22,11 @@ image_h = 224
 
 if __name__ == '__main__':
 	# 初始化主节点的RPC连接
-	rpc.init_rpc("master", rank=0, world_size=2, requires_grad=False)
+	rpc.init_rpc("master", rank=0, world_size=2)
 
 
 	#generate random data
-	inputs = torch.randn(batch_size, 3, image_w, image_h)
+	inputs = torch.randn(batch_size, 3, image_w, image_h, requires_grad=False)
 	model_shard_0 = stage0.Stage0()
 	model_shard_0.cuda()
 	p2_rref = rpc.remote('worker1', stage1.Stage1).cuda()
