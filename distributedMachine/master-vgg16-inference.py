@@ -30,6 +30,7 @@ if __name__ == '__main__':
 	model_shard_0 = stage0.Stage0()
 	model_shard_0.cuda()
 	p2_rref = rpc.remote('worker1', stage1.Stage1).to('cuda')
+	print('here')
 
 	out0 = model_shard_0(inputs)
 	out1 = p2_rref.rpc_sync().forward(out0)
